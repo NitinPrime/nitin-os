@@ -21,8 +21,8 @@ export function SectionLabel({
 }) {
   return (
     <p className={cn("flex items-center gap-3 font-mono text-[11px] tracking-[0.22em] text-mute uppercase", className)}>
-      <span className="text-dim">{index}</span>
-      <span className="h-px w-8 bg-line" aria-hidden />
+      <span className="text-accent">{index}</span>
+      <span className="h-px w-10 bg-gradient-to-r from-accent/80 to-transparent" aria-hidden />
       {children}
     </p>
   );

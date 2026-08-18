@@ -37,8 +37,8 @@ export function MagneticLink({
       ref={ref}
       href={href}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-sm px-5 py-3 text-[12px] font-medium tracking-[0.16em] uppercase transition-[transform,background,color,border-color] duration-200 will-change-transform",
-        variant === "primary" && "bg-ink text-base hover:bg-white",
+        "inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-[12px] font-medium tracking-[0.16em] uppercase transition-[transform,background,color,border-color,box-shadow] duration-200 will-change-transform",
+        variant === "primary" && "bg-ink text-base shadow-[0_0_0_1px_rgba(255,255,255,0.06)] hover:bg-white",
         variant === "ghost" && "border border-line text-ink hover:border-line-strong hover:bg-white/5",
         className,
       )}

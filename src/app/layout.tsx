@@ -22,28 +22,30 @@ const instrument = Instrument_Serif({
 });
 
 const description =
-  "Nitin is a software engineer working across full-stack products, AI/ML systems, and robotics. Founding Engineer at ChiefPulse. Selected work: autonomous indoor drone, NyayaLens, AI SaaS, backend systems.";
+  "Nitin S is a software engineer working across full-stack products, AI/ML systems, and robotics. Currently at EnviroApps INC. Previously Founding Engineer at ChiefPulse. Selected work: autonomous indoor drone, NyayaLens, AI SaaS, backend systems.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
   title: {
-    default: "Nitin — Software Engineer",
-    template: "%s — Nitin",
+    default: `${profile.fullName} — Software Engineer`,
+    template: `%s — ${profile.fullName}`,
   },
   description,
   authors: [{ name: profile.fullName, url: profile.github }],
   keywords: [
+    "Nitin S",
     "Nitin",
     "Software Engineer",
     "Full Stack",
     "AI",
     "Machine Learning",
+    "EnviroApps",
     "ChiefPulse",
     "Next.js",
     "TypeScript",
   ],
   openGraph: {
-    title: "Nitin — Software Engineer",
+    title: `${profile.fullName} — Software Engineer`,
     description,
     type: "website",
     locale: "en_US",
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nitin — Software Engineer",
+    title: `${profile.fullName} — Software Engineer`,
     description,
   },
   robots: { index: true, follow: true },
@@ -62,12 +64,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@type": "Person",
     name: profile.fullName,
-    jobTitle: profile.title,
+    jobTitle: "AI Full Stack Engineer",
     email: profile.email,
     telephone: profile.phone,
     url: profile.siteUrl,
-    sameAs: [profile.github, profile.linkedin],
+    sameAs: [profile.github, profile.linkedin, profile.resume],
     alumniOf: "PSG College of Technology",
+    worksFor: {
+      "@type": "Organization",
+      name: "EnviroApps INC",
+      address: "Orlando, Florida",
+    },
     image: `${profile.siteUrl}${profile.photo}`,
   };
 

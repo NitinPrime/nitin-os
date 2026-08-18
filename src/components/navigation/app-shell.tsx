@@ -1,9 +1,7 @@
 "use client";
 
-import { BootSequence } from "@/components/boot/boot-sequence";
 import { CommandPalette } from "@/components/command-palette/command-palette";
 import { Navigation } from "@/components/navigation/navigation";
-import { ScrollProgress } from "@/components/navigation/scroll-progress";
 import { useEffect, useState } from "react";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
@@ -28,9 +26,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         Skip to content
       </a>
-      <BootSequence />
       <Navigation onOpenPalette={() => setPalette(true)} />
-      <ScrollProgress />
       <CommandPalette open={palette} onOpenChange={setPalette} />
       {children}
     </>

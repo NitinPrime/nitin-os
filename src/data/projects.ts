@@ -40,7 +40,7 @@ export const projects: Project[] = [
     title: "Autonomous Indoor Drone",
     kicker: "Computer Vision × GenAI × Robotics",
     summary:
-      "A language-conditioned indoor autonomy stack: retrieve environment context, reason over it, then act through ROS in simulation.",
+      "Language in, retrieval, then ROS control — an indoor autonomy stack in simulation.",
     problem:
       "Indoor robots do not get a GPS fix, and a language model does not get a map. Asking an LLM to “fly to the red cabinet” without grounding is how you get confident nonsense near a wall. The problem was to take a human request and turn it into a controlled action inside a simulated indoor world — with perception, memory, and control as separate, inspectable layers.",
     approach:
@@ -97,7 +97,16 @@ export const projects: Project[] = [
     ],
     stack: ["Python", "C++", "ROS", "Gazebo", "FAISS", "LLMs", "Computer Vision"],
     domains: ["AI", "Systems", "Data"],
-    links: [],
+    links: [
+      { label: "Live", href: "https://autonomous-indoor-drone-b3ficygjsu6jjtwbe6y5xd.streamlit.app/" },
+    ],
+    frames: [
+      {
+        src: "/images/drone/simulation.png",
+        alt: "Autonomous indoor drone dashboard with natural language command and indoor simulation",
+        caption: "Natural language in — FAISS retrieval, then the drone flies the indoor mission.",
+      },
+    ],
     featured: true,
   },
   {
@@ -106,7 +115,7 @@ export const projects: Project[] = [
     title: "ChiefPulse",
     kicker: "Founding Engineer · AI product",
     summary:
-      "An AI product for founder clarity. Not a weekend demo — a real application with a real user, and the engineering that implies.",
+      "AI product for founder attention: daily briefing, priority map, and Winston as co-pilot.",
     problem:
       "Founders do not usually fail because they cannot work hard. They fail because open loops go quiet: commitments stall, context scatters, and the day starts already fragmented. ChiefPulse is built around that problem — “Clarity, delivered before you begin.”",
     approach:
@@ -155,7 +164,7 @@ export const projects: Project[] = [
       "The UI is part of the architecture. If the brief is anxious, the system has already failed.",
     ],
     contribution: [
-      "Founding Engineer since May 2026 — owning product engineering on a small team.",
+      "Founding Engineer, May 2026 — Aug 2026 — owning product engineering on a small team.",
       NEEDED,
     ],
     stack: ["TypeScript", "React", "Supabase"],
@@ -163,19 +172,9 @@ export const projects: Project[] = [
     links: [{ label: "Company", href: "https://www.linkedin.com/company/chief-pulse" }],
     frames: [
       {
-        src: "/images/chiefpulse/briefing.png",
-        alt: "ChiefPulse evening briefing with Winston’s synthesis and presidential brief",
+        src: "/images/chiefpulse/dashboard.png",
+        alt: "ChiefPulse evening dashboard with Winston’s briefing and presidential brief",
         caption: "Evening briefing — Winston synthesizes Gmail, Calendar, and tasks into one calm read.",
-      },
-      {
-        src: "/images/chiefpulse/priority-map.png",
-        alt: "ChiefPulse Priority Map with Do Now, Schedule, Delegate, and Eliminate columns",
-        caption: "Priority Map — where attention belongs, not another undifferentiated todo list.",
-      },
-      {
-        src: "/images/chiefpulse/winston.png",
-        alt: "Winston Co-Pilot chat answering a calendar question from Google Calendar and Notion",
-        caption: "Winston · Co-Pilot — chat and decide, grounded in the same stack as the brief.",
       },
     ],
     featured: true,
@@ -186,7 +185,7 @@ export const projects: Project[] = [
     title: "NyayaLens",
     kicker: "AI SaaS · legal retrieval",
     summary:
-      "Describe what happened in plain language. NyayaLens structures the facts, retrieves potentially relevant Indian legal sources, and shows both sides — with citations, not guesswork.",
+      "Plain-language legal case analysis for India. Retrieves sources and shows both sides, with citations.",
     problem:
       "People meet the law in ordinary language. Most legal AI answers in fluent paragraphs that cannot show their work. In Indian law that is dangerous: a hallucinated section looks like advice. The job is narrower — structure the situation, retrieve what can be retrieved, and say so when a citation is not there.",
     approach:
@@ -238,7 +237,17 @@ export const projects: Project[] = [
     ],
     stack: ["Next.js", "React", "Tailwind CSS", "Railway", "LLMs", "Retrieval"],
     domains: ["AI", "Frontend", "Backend"],
-    links: [{ label: "Live", href: "https://nyaya-lens-lovat.vercel.app/" }],
+    links: [
+      { label: "GitHub", href: "https://github.com/NitinPrime/NyayaLens" },
+      { label: "Live", href: "https://nyaya-lens-lovat.vercel.app/" },
+    ],
+    frames: [
+      {
+        src: "/images/nyaya-lens/landing.png",
+        alt: "NyayaLens landing page with case analysis flow",
+        caption: "NyayaLens — describe a case, retrieve Indian legal sources, see both sides.",
+      },
+    ],
     featured: true,
   },
   {
@@ -247,7 +256,7 @@ export const projects: Project[] = [
     title: "AI Resume Analyzer",
     kicker: "AI SaaS · document understanding",
     summary:
-      "Upload a resume and a job description. Get an ATS-oriented reading: keyword match, section feedback, and the next improvements — from Claude.",
+      "Upload a resume and a job posting. Claude returns keyword gaps and ranked improvements.",
     problem:
       "Most resume tools either keyword-stuff or give generic advice. The useful job is narrower: given this PDF and this posting, what is actually missing, and what should change first?",
     approach:
@@ -337,7 +346,7 @@ export const projects: Project[] = [
     stack: ["Node.js", "Express", "MongoDB"],
     domains: ["Backend", "Systems"],
     links: [{ label: "GitHub", href: "https://github.com/NitinPrime/URL-shortener" }],
-    featured: true,
+    featured: false,
   },
 ];
 

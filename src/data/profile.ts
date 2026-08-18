@@ -5,7 +5,7 @@ export function isNeeded(value: string | undefined): boolean {
 }
 
 export const profile = {
-  name: "Nitin",
+  name: "Nitin S",
   fullName: "Nitin S",
   handle: "NITIN.OS",
   title: "Software Engineer",
@@ -18,13 +18,14 @@ export const profile = {
   github: "https://github.com/NitinPrime",
   githubHandle: "NitinPrime",
   linkedin: "https://www.linkedin.com/in/nitin-s-/",
+  resume: "https://drive.google.com/file/d/1fO0h8AuZO7f8cYEKIW1i-DHBVBwcEs7J/view?usp=sharing",
   siteUrl: "https://nitin-os.vercel.app",
   tags: ["Full Stack", "AI / ML", "Systems", "Product Engineering"],
   photo: "/images/nitin.png",
 } as const;
 
 export const about = {
-  who: "I'm Nitin, an engineer from PSG College of Technology. I work at the intersection of full-stack product, machine learning, and systems — the kind of problems where the interface, the model, and the infrastructure all have to agree.",
+  who: "I'm Nitin S, an engineer from PSG College of Technology. I work at the intersection of full-stack product, machine learning, and systems — the kind of problems where the interface, the model, and the infrastructure all have to agree.",
   build: "Intelligent products with a real user on the other side: founder tools at ChiefPulse, NyayaLens for grounded legal research, computer-vision pipelines, retrieval-backed robotics, and small, well-made web systems.",
   problems:
     "I'm most interested in systems that have to reason under constraints — indoor autonomy, live video, retrieval, and product surfaces that have to stay calm when the backend is doing something hard.",

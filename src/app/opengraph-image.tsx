@@ -23,7 +23,7 @@ export default function OpenGraphImage() {
           NITIN.OS
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 92, lineHeight: 0.9 }}>Nitin</div>
+          <div style={{ fontSize: 92, lineHeight: 0.9 }}>Nitin S</div>
           <div style={{ marginTop: 18, fontSize: 28, color: "#8b919c" }}>Software Engineer</div>
           <div style={{ marginTop: 28, fontSize: 20, color: "#616874" }}>
             Full stack · AI / ML · Systems · Product

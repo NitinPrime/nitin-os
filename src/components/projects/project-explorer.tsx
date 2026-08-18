@@ -1,103 +1,106 @@
 "use client";
 
 import { ArrowLink } from "@/components/ui/arrow-link";
+import { ClickableImage } from "@/components/ui/clickable-image";
 import { SectionLabel } from "@/components/ui/meta";
-import { Reveal } from "@/components/ui/reveal";
-import { moreWork, projects } from "@/data/projects";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
-import { type MouseEvent, useState } from "react";
+import { projects } from "@/data/projects";
+import { motion, useReducedMotion } from "motion/react";
 
-export function ProjectExplorer() {
-  return (
-    <section id="work" className="scroll-mt-20 border-t border-line py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <Reveal>
-          <SectionLabel index="03">Work</SectionLabel>
-          <h2 className="mt-5 font-display text-4xl tracking-[-0.03em] sm:text-6xl">
-            Selected systems.
-          </h2>
-          <p className="mt-5 max-w-xl text-mute">
-            Case studies, not cards. Open one to see the problem, the architecture, and the decisions.
-          </p>
-        </Reveal>
-
-        <div className="mt-14 divide-y divide-line border-y border-line">
-          {projects.map((project) => (
-            <ProjectRow key={project.slug} project={project} />
-          ))}
-        </div>
-
-        <div className="mt-16">
-          <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-dim">Also built</p>
-          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-            {moreWork.map((item) => (
-              <li key={item.title} className="flex items-baseline justify-between gap-4 border-b border-line py-3">
-                <span className="text-sm text-ink">{item.title}</span>
-                {item.href ? (
-                  <ArrowLink href={item.href} external>
-                    {item.meta}
-                  </ArrowLink>
-                ) : (
-                  <span className="font-mono text-[11px] text-dim">{item.meta}</span>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ProjectRow({
-  project,
+function ProjectCardCover({
+  code,
+  frames,
 }: {
-  project: (typeof projects)[number];
+  code: string;
+  frames?: { src: string; alt: string; caption: string }[];
 }) {
-  const [spot, setSpot] = useState({ x: 50, y: 50 });
+  if (!frames || frames.length === 0) {
+    return (
+      <div className="flex aspect-[16/10] items-end bg-[linear-gradient(135deg,#1a2030_0%,#0e1015_52%,rgba(77,124,255,0.28)_100%)] p-5">
+        <span className="font-mono text-[11px] tracking-[0.18em] text-dim uppercase">{code}</span>
+      </div>
+    );
+  }
 
-  function onMove(event: MouseEvent<HTMLAnchorElement>) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    setSpot({
-      x: ((event.clientX - rect.left) / rect.width) * 100,
-      y: ((event.clientY - rect.top) / rect.height) * 100,
-    });
+  if (frames.length === 1) {
+    return (
+      <div className="overflow-hidden">
+        <ClickableImage
+          src={frames[0].src}
+          alt={frames[0].alt}
+          caption={frames[0].caption}
+          className="aspect-[16/10] w-full object-cover object-top transition-transform duration-500 ease-out group-hover/card:scale-[1.05]"
+        />
+      </div>
+    );
   }
 
   return (
-    <Link
-      href={`/work/${project.slug}`}
-      onMouseMove={onMove}
-      className={cn(
-        "group relative block px-0 py-8 transition-colors sm:py-10",
-      )}
-      style={{
-        background: `radial-gradient(420px circle at ${spot.x}% ${spot.y}%, rgba(77,124,255,0.07), transparent 42%)`,
-      }}
-    >
-      <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-        <div className="max-w-2xl">
-          <p className="font-mono text-[11px] tracking-[0.2em] text-dim uppercase">
-            {project.code} · {project.kicker}
-          </p>
-          <h3
-            className="mt-2 font-display text-3xl tracking-[-0.03em] sm:text-5xl"
-            style={{ viewTransitionName: `project-title-${project.slug}` }}
-          >
-            {project.title}
-          </h3>
-          <p className="mt-3 max-w-xl text-mute">{project.summary}</p>
-        </div>
-        <div className="flex flex-col items-start gap-3 md:items-end">
-          <p className="font-mono text-[11px] tracking-[0.12em] text-dim">
-            {project.stack.slice(0, 4).join("  /  ")}
-          </p>
-          <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-mute transition-colors group-hover:text-ink">
-            Open case study →
-          </span>
+    <div className="grid grid-cols-3 gap-px overflow-hidden bg-line">
+      {frames.map((frame) => (
+        <ClickableImage
+          key={frame.src}
+          src={frame.src}
+          alt={frame.alt}
+          caption={frame.caption}
+          className="aspect-[4/3] w-full object-cover object-top transition-transform duration-500 ease-out group-hover/card:scale-[1.06]"
+        />
+      ))}
+    </div>
+  );
+}
+
+export function ProjectExplorer() {
+  const featured = projects.filter((project) => project.featured);
+  const reduced = useReducedMotion();
+
+  return (
+    <section id="work" className="scroll-mt-20 border-t border-line py-20 sm:py-24">
+      <div className="mx-auto max-w-5xl px-5 sm:px-8">
+        <SectionLabel index="01">Work</SectionLabel>
+        <h2 className="mt-4 font-display text-3xl tracking-[-0.03em] sm:text-4xl">Selected work</h2>
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+          {featured.map((project, i) => (
+            <motion.article
+              key={project.slug}
+              className="group/card card-glow flex flex-col overflow-hidden rounded-2xl border border-line bg-surface"
+              initial={reduced ? false : { opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-8%" }}
+              transition={{ duration: 0.55, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={
+                reduced
+                  ? undefined
+                  : { y: -8, borderColor: "rgba(77, 124, 255, 0.45)", transition: { duration: 0.22 } }
+              }
+            >
+              <ProjectCardCover code={project.code} frames={project.frames} />
+
+              <div className="flex flex-1 flex-col p-5 sm:p-6">
+                <p className="font-mono text-[11px] tracking-[0.18em] uppercase text-dim">
+                  {project.code} · {project.kicker}
+                </p>
+                <h3 className="mt-2 font-display text-xl tracking-[-0.03em] sm:text-2xl">{project.title}</h3>
+                <p className="mt-2 line-clamp-3 text-[14px] leading-relaxed text-mute">{project.summary}</p>
+
+                <p className="mt-4 font-mono text-[10px] leading-relaxed tracking-[0.08em] text-dim">
+                  {project.stack.slice(0, 4).join("  /  ")}
+                </p>
+
+                {project.links.length > 0 ? (
+                  <div className="mt-5 flex flex-wrap gap-3 border-t border-line pt-4">
+                    {project.links.map((link) => (
+                      <ArrowLink key={link.href} href={link.href} external={link.href.startsWith("http")}>
+                        {link.label}
+                      </ArrowLink>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            </motion.article>
+          ))}
         </div>
       </div>
-    </Link>
+    </section>
   );
 }

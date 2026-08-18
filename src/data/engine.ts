@@ -121,7 +121,7 @@ export const experience: ExperienceItem[] = [
     era: "PRODUCT",
     org: "ChiefPulse",
     role: "Founding Engineer",
-    dates: "May 2026 — Present",
+    dates: "May 2026 — Aug 2026",
     location: "Coimbatore",
     summary:
       "Building the product, not a prototype: an AI company that tries to give founders clarity before the day fragments.",
@@ -130,6 +130,16 @@ export const experience: ExperienceItem[] = [
       NEEDED,
     ],
     stack: ["TypeScript", "React", "Supabase"],
+  },
+  {
+    id: "enviroapps",
+    era: "PRODUCT",
+    org: "EnviroApps INC",
+    role: "AI Full Stack Engineer",
+    dates: "Aug 2026 — Present",
+    location: "Orlando, Florida",
+    summary: "",
+    points: [],
   },
   {
     id: "next",

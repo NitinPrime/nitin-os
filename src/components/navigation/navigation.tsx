@@ -26,7 +26,7 @@ export function Navigation({
   }, []);
 
   useEffect(() => {
-    const ids = ["work", "systems", "experience", "about", "contact", "lab", "proof"];
+    const ids = navItems.map((item) => item.id);
     const els = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => Boolean(el));
@@ -57,42 +57,44 @@ export function Navigation({
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        scrolled || open ? "border-b border-line bg-base/80 backdrop-blur-md" : "bg-transparent",
+        scrolled || open ? "border-b border-line bg-base/75 backdrop-blur-xl" : "bg-transparent",
       )}
     >
-      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-5 sm:px-8">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5 sm:px-8">
         <Link href="/" className="font-mono text-[12px] tracking-[0.22em] text-ink">
           {profile.handle}
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
           {navItems.map((item) => (
             <a
               key={item.id}
               href={item.href}
               className={cn(
-                "font-mono text-[11px] tracking-[0.18em] uppercase transition-colors",
+                "relative font-mono text-[11px] tracking-[0.18em] uppercase transition-colors",
                 active === item.id ? "text-ink" : "text-mute hover:text-ink",
               )}
             >
               {item.label}
             </a>
           ))}
-          <Link
-            href="/resume"
-            className="font-mono text-[11px] tracking-[0.18em] uppercase text-mute hover:text-ink"
-          >
-            Resume
-          </Link>
           <button
             type="button"
             onClick={onOpenPalette}
-            className="inline-flex items-center gap-1.5 rounded-sm border border-line px-2 py-1 font-mono text-[10px] tracking-[0.14em] text-mute uppercase hover:border-line-strong hover:text-ink"
+            className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-mute uppercase hover:border-line-strong hover:text-ink"
             aria-keyshortcuts="Meta+K Control+K"
           >
             <Command className="size-3" />
             K
           </button>
+          <a
+            href={profile.resume}
+            target="_blank"
+            rel="noreferrer"
+            className="rounded-full bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-base uppercase hover:bg-white"
+          >
+            Resume
+          </a>
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -124,19 +126,21 @@ export function Navigation({
               <a
                 key={item.id}
                 href={item.href}
-                className="border-b border-line py-4 font-mono text-[13px] tracking-[0.18em] uppercase"
+                className="border-b border-line py-4 font-mono text-[13px] tracking-[0.18em] uppercase last:border-b-0"
                 onClick={() => setOpen(false)}
               >
                 {item.label}
               </a>
             ))}
-            <Link
-              href="/resume"
+            <a
+              href={profile.resume}
+              target="_blank"
+              rel="noreferrer"
               className="py-4 font-mono text-[13px] tracking-[0.18em] uppercase"
               onClick={() => setOpen(false)}
             >
               Resume
-            </Link>
+            </a>
           </nav>
         </div>
       ) : null}

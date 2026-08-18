@@ -3,20 +3,11 @@
 import { commands, type Command } from "@/data/commands";
 import { fuzzyFilter } from "@/lib/fuzzy";
 import { scrollToId } from "@/lib/utils";
-import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-function runCommand(command: Command, router: ReturnType<typeof useRouter>) {
+function runCommand(command: Command) {
   if (command.action.type === "section") {
-    if (window.location.pathname !== "/") {
-      router.push(`/#${command.action.id}`);
-      return;
-    }
     scrollToId(command.action.id);
-    return;
-  }
-  if (command.action.type === "route") {
-    router.push(command.action.href);
     return;
   }
   window.open(command.action.href, "_blank", "noopener,noreferrer");
@@ -29,7 +20,6 @@ export function CommandPalette({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
-  const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const [query, setQuery] = useState("");
   const [index, setIndex] = useState(0);
@@ -72,7 +62,7 @@ export function CommandPalette({
         event.preventDefault();
         const hit = hits[index];
         if (hit) {
-          runCommand(hit.item, router);
+          runCommand(hit.item);
           close();
         }
       }
@@ -80,7 +70,7 @@ export function CommandPalette({
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [open, hits, index, close, router]);
+  }, [open, hits, index, close]);
 
   if (!open) return null;
 
@@ -126,7 +116,7 @@ export function CommandPalette({
                   }`}
                   onMouseEnter={() => setIndex(i)}
                   onClick={() => {
-                    runCommand(hit.item, router);
+                    runCommand(hit.item);
                     close();
                   }}
                 >

@@ -1,6 +1,5 @@
 export type CommandAction =
   | { type: "section"; id: string }
-  | { type: "route"; href: string }
   | { type: "external"; href: string }
 
 export type Command = {
@@ -13,74 +12,25 @@ export type Command = {
 
 export const commands: Command[] = [
   {
-    id: "projects",
-    label: "Projects",
-    hint: "Work",
-    keywords: ["work", "projects", "case studies", "drone", "chiefpulse", "nyaya"],
+    id: "work",
+    label: "Work",
+    hint: "Projects",
+    keywords: ["work", "projects", "drone", "chiefpulse", "nyaya"],
     action: { type: "section", id: "work" },
-  },
-  {
-    id: "drone",
-    label: "Autonomous Indoor Drone",
-    hint: "Flagship",
-    keywords: ["drone", "ros", "gazebo", "faiss", "robotics"],
-    action: { type: "route", href: "/work/autonomous-indoor-drone" },
-  },
-  {
-    id: "chiefpulse",
-    label: "ChiefPulse",
-    hint: "Product",
-    keywords: ["chiefpulse", "founding", "saas", "winston"],
-    action: { type: "route", href: "/work/chiefpulse" },
-  },
-  {
-    id: "nyaya",
-    label: "NyayaLens",
-    hint: "AI SaaS",
-    keywords: ["nyaya", "legal", "law", "retrieval", "saas", "ai"],
-    action: { type: "route", href: "/work/nyaya-lens" },
-  },
-  {
-    id: "analyzer",
-    label: "AI Resume Analyzer",
-    hint: "AI SaaS",
-    keywords: ["resume", "claude", "saas", "ai"],
-    action: { type: "route", href: "/work/ai-resume-analyzer" },
-  },
-  {
-    id: "shortener",
-    label: "URL Shortener",
-    hint: "Backend",
-    keywords: ["url", "express", "mongodb", "backend"],
-    action: { type: "route", href: "/work/url-shortener" },
-  },
-  {
-    id: "systems",
-    label: "Engineering system",
-    hint: "Stack",
-    keywords: ["skills", "systems", "engine", "stack"],
-    action: { type: "section", id: "systems" },
   },
   {
     id: "experience",
     label: "Experience",
     hint: "Timeline",
-    keywords: ["experience", "nus", "psg", "samsung", "chiefpulse"],
+    keywords: ["experience", "nus", "psg", "chiefpulse", "enviroapps"],
     action: { type: "section", id: "experience" },
   },
   {
-    id: "lab",
-    label: "Engineering lab",
-    hint: "Play",
-    keywords: ["lab", "cli", "visualizer"],
-    action: { type: "section", id: "lab" },
-  },
-  {
-    id: "about",
-    label: "About",
-    hint: "Nitin",
-    keywords: ["about", "who", "bio"],
-    action: { type: "section", id: "about" },
+    id: "research",
+    label: "Research",
+    hint: "Paper",
+    keywords: ["research", "paper", "publication", "qode", "optic"],
+    action: { type: "section", id: "research" },
   },
   {
     id: "contact",
@@ -92,9 +42,12 @@ export const commands: Command[] = [
   {
     id: "resume",
     label: "Resume",
-    hint: "Open",
-    keywords: ["resume", "cv"],
-    action: { type: "route", href: "/resume" },
+    hint: "PDF",
+    keywords: ["resume", "cv", "pdf"],
+    action: {
+      type: "external",
+      href: "https://drive.google.com/file/d/1fO0h8AuZO7f8cYEKIW1i-DHBVBwcEs7J/view?usp=sharing",
+    },
   },
   {
     id: "github",
@@ -114,8 +67,7 @@ export const commands: Command[] = [
 
 export const navItems = [
   { href: "/#work", label: "Work", id: "work" },
-  { href: "/#systems", label: "Systems", id: "systems" },
   { href: "/#experience", label: "Experience", id: "experience" },
-  { href: "/#about", label: "About", id: "about" },
+  { href: "/#research", label: "Research", id: "research" },
   { href: "/#contact", label: "Contact", id: "contact" },
 ] as const;
