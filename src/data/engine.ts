@@ -13,29 +13,29 @@ export const engineDomains: EngineDomain[] = [
     id: "frontend",
     label: "Frontend",
     summary: "Interfaces that feel like products, not dashboards taped to an API.",
-    usedIn: ["ChiefPulse", "AI Resume Analyzer", "NITIN.OS"],
+    usedIn: ["ChiefPulse", "NyayaLens", "NITIN.OS"],
     technologies: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS"],
   },
   {
     id: "backend",
     label: "Backend",
     summary: "APIs, persistence, and the boring reliability work that makes products real.",
-    usedIn: ["URL Shortener", "ChiefPulse", "Inventory systems"],
+    usedIn: ["NyayaLens API", "URL Shortener", "ChiefPulse"],
     technologies: ["Node.js", "Express", "PostgreSQL", "MongoDB", "Supabase", "REST APIs"],
   },
   {
     id: "ai",
     label: "AI",
     summary: "Models in a pipeline — not a demo notebook that never left the laptop.",
-    usedIn: ["Indoor drone", "NUS accident detection", "Resume Analyzer"],
+    usedIn: ["Indoor drone", "NyayaLens", "NUS accident detection"],
     technologies: ["Python", "TensorFlow", "OpenCV", "FAISS", "LLMs", "Computer Vision"],
   },
   {
     id: "data",
     label: "Data",
     summary: "Retrieval, features, and the context a model actually needs to be useful.",
-    usedIn: ["Indoor drone retrieval layer", "NUS SageMaker workflows"],
-    technologies: ["FAISS", "AWS SageMaker", "OpenCV", "PostgreSQL"],
+    usedIn: ["NyayaLens retrieval", "Indoor drone retrieval layer", "NUS SageMaker workflows"],
+    technologies: ["FAISS", "AWS SageMaker", "OpenCV", "PostgreSQL", "Retrieval"],
   },
   {
     id: "systems",
@@ -212,8 +212,8 @@ export const thinkStages: ThinkStage[] = [
     intent:
       "Change the weakest link, not the most visible one. Keep the interfaces stable while the insides get less wrong.",
     example: {
-      project: "Resume Analyzer",
-      text: "The first version called the model from the browser. It worked. Production would move that call behind a server so the key and the latency budget are actually owned.",
+      project: "NyayaLens",
+      text: "The first version of a legal model that cites freely is a liability. Iteration here is the refusal: if the provision is not in the knowledge base, the interface has to say so.",
     },
   },
 ];

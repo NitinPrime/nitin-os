@@ -22,7 +22,7 @@ const instrument = Instrument_Serif({
 });
 
 const description =
-  "Nitin is a software engineer working across full-stack products, AI/ML systems, and robotics. Founding Engineer at ChiefPulse. Selected work: autonomous indoor drone, AI SaaS, backend systems.";
+  "Nitin is a software engineer working across full-stack products, AI/ML systems, and robotics. Founding Engineer at ChiefPulse. Selected work: autonomous indoor drone, NyayaLens, AI SaaS, backend systems.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),

@@ -6,6 +6,12 @@ export type ArchitectureNode = {
   detail: string
 }
 
+export type ProjectFrame = {
+  src: string
+  alt: string
+  caption: string
+}
+
 export type Project = {
   slug: string
   code: string
@@ -23,6 +29,7 @@ export type Project = {
   domains: string[]
   links: { label: string; href: string }[]
   contribution?: string[]
+  frames?: ProjectFrame[]
   featured: boolean
 }
 
@@ -103,12 +110,12 @@ export const projects: Project[] = [
     problem:
       "Founders do not usually fail because they cannot work hard. They fail because open loops go quiet: commitments stall, context scatters, and the day starts already fragmented. ChiefPulse is built around that problem — “Clarity, delivered before you begin.”",
     approach:
-      "Build it as a product: TypeScript and React on the surface, Supabase underneath for auth and data, and an AI layer that is allowed to brief, not to drown. The interface has to stay calm. The system has to sit between inputs and attention.",
+      "Build it as a product: TypeScript and React on the surface, Supabase underneath for auth and data, and an AI layer that is allowed to brief, not to drown. The interface has to stay calm. The system has to sit between inputs and attention — a daily briefing, a priority map, and Winston as a co-pilot over Gmail, Calendar, and tasks.",
     architecture: [
       {
         id: "inputs",
         label: "Inputs",
-        detail: "Commitments, threads, and the residue of a founder’s tools.",
+        detail: "Gmail, Calendar, tasks, Slack — the residue of a founder’s tools.",
       },
       {
         id: "data",
@@ -117,13 +124,18 @@ export const projects: Project[] = [
       },
       {
         id: "model",
-        label: "AI layer",
-        detail: "Surfacing what needs attention — stalls, open loops, the next brief.",
+        label: "Winston",
+        detail: "The co-pilot. Synthesizes the stack into a brief, a chat, and a next move.",
+      },
+      {
+        id: "map",
+        label: "Priority Map",
+        detail: "Attention sorted: do now, schedule, delegate, eliminate.",
       },
       {
         id: "ui",
         label: "Product UI",
-        detail: "React + TypeScript. The brief a person actually sees.",
+        detail: "React + TypeScript. A calm evening surface, not a noisy dashboard.",
       },
     ],
     challenges: [
@@ -149,11 +161,89 @@ export const projects: Project[] = [
     stack: ["TypeScript", "React", "Supabase"],
     domains: ["Product", "Frontend", "Backend"],
     links: [{ label: "Company", href: "https://www.linkedin.com/company/chief-pulse" }],
+    frames: [
+      {
+        src: "/images/chiefpulse/briefing.png",
+        alt: "ChiefPulse evening briefing with Winston’s synthesis and presidential brief",
+        caption: "Evening briefing — Winston synthesizes Gmail, Calendar, and tasks into one calm read.",
+      },
+      {
+        src: "/images/chiefpulse/priority-map.png",
+        alt: "ChiefPulse Priority Map with Do Now, Schedule, Delegate, and Eliminate columns",
+        caption: "Priority Map — where attention belongs, not another undifferentiated todo list.",
+      },
+      {
+        src: "/images/chiefpulse/winston.png",
+        alt: "Winston Co-Pilot chat answering a calendar question from Google Calendar and Notion",
+        caption: "Winston · Co-Pilot — chat and decide, grounded in the same stack as the brief.",
+      },
+    ],
+    featured: true,
+  },
+  {
+    slug: "nyaya-lens",
+    code: "03",
+    title: "NyayaLens",
+    kicker: "AI SaaS · legal retrieval",
+    summary:
+      "Describe what happened in plain language. NyayaLens structures the facts, retrieves potentially relevant Indian legal sources, and shows both sides — with citations, not guesswork.",
+    problem:
+      "People meet the law in ordinary language. Most legal AI answers in fluent paragraphs that cannot show their work. In Indian law that is dangerous: a hallucinated section looks like advice. The job is narrower — structure the situation, retrieve what can be retrieved, and say so when a citation is not there.",
+    approach:
+      "A product path, not a chatbot: describe the case, optional details (parties, dates, evidence), then an analysis that keeps facts, inferences, retrieved law, and argument in separate lanes. Demo mode uses synthetic examples across tenancy, cyber, consumer, and employment — the knowledge base is a curated demo corpus, not the entirety of Indian law. The interface is explicit that this is general legal information, not a substitute for an advocate.",
+    architecture: [
+      {
+        id: "intake",
+        label: "Case intake",
+        detail: "Plain language plus optional structure: who, when, where, amount, evidence.",
+      },
+      {
+        id: "structure",
+        label: "Case structure",
+        detail: "Parties, facts, issues, and missing information — extracted without inventing details.",
+      },
+      {
+        id: "retrieve",
+        label: "Retrieval",
+        detail: "Provisions come from the knowledge base. Unsupported citations are flagged.",
+      },
+      {
+        id: "api",
+        label: "API",
+        detail: "Production analysis is served from a Railway API; the product UI lives on Vercel.",
+      },
+      {
+        id: "out",
+        label: "Both-side brief",
+        detail: "Arguments, weaknesses, next steps — tied to retrieved sources when they exist.",
+      },
+    ],
+    challenges: [
+      "Legal generation without retrieval is confident nonsense. The system has to refuse a citation it cannot ground.",
+      "Keeping facts, inferences, and law visually separate so a user can audit the reasoning.",
+      "A demo knowledge base has to be honest about its coverage — not pretend to be all of Indian law.",
+    ],
+    decisions: [
+      "Retrieval before argument. If no provision is found, the interface says so.",
+      "Next.js on Vercel for the product surface; the analysis API on Railway so the model key is not in the browser.",
+      "Both-side analysis as a product rule: look for weaknesses in the user’s position as hard as supporting ones.",
+      "Synthetic demo cases so the retrieval path can be shown without using real personal data.",
+    ],
+    result:
+      "A live product: analyze a case or walk a demo. No user or accuracy metrics are listed here because they are not public numbers for this page.",
+    learnings: [
+      "In a high-stakes domain, the product is the refusal as much as the answer.",
+      "Structured output beats a legal-sounding chat transcript nobody can verify.",
+      "SaaS architecture starts with where the API lives — Vercel for the interface, Railway for the reasoning service.",
+    ],
+    stack: ["Next.js", "React", "Tailwind CSS", "Railway", "LLMs", "Retrieval"],
+    domains: ["AI", "Frontend", "Backend"],
+    links: [{ label: "Live", href: "https://nyaya-lens-lovat.vercel.app/" }],
     featured: true,
   },
   {
     slug: "ai-resume-analyzer",
-    code: "03",
+    code: "04",
     title: "AI Resume Analyzer",
     kicker: "AI SaaS · document understanding",
     summary:
@@ -204,7 +294,7 @@ export const projects: Project[] = [
   },
   {
     slug: "url-shortener",
-    code: "04",
+    code: "05",
     title: "URL Shortener",
     kicker: "Backend systems · HTTP contracts",
     summary:

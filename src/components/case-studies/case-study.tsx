@@ -1,4 +1,5 @@
 import { ArrowLink } from "@/components/ui/arrow-link";
+import { ProductFrames } from "@/components/case-studies/product-frames";
 import { Needed } from "@/components/ui/meta";
 import { isNeeded } from "@/data/profile";
 import { type Project } from "@/data/projects";
@@ -38,6 +39,8 @@ export function CaseStudy({ project }: { project: Project }) {
           </div>
         ) : null}
       </header>
+
+      {project.frames && project.frames.length > 0 ? <ProductFrames frames={project.frames} /> : null}
 
       <div className="border-t border-line">
         {SECTIONS.map((section) => (

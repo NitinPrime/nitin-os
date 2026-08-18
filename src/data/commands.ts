@@ -16,7 +16,7 @@ export const commands: Command[] = [
     id: "projects",
     label: "Projects",
     hint: "Work",
-    keywords: ["work", "projects", "case studies", "drone", "chiefpulse"],
+    keywords: ["work", "projects", "case studies", "drone", "chiefpulse", "nyaya"],
     action: { type: "section", id: "work" },
   },
   {
@@ -30,8 +30,15 @@ export const commands: Command[] = [
     id: "chiefpulse",
     label: "ChiefPulse",
     hint: "Product",
-    keywords: ["chiefpulse", "founding", "saas"],
+    keywords: ["chiefpulse", "founding", "saas", "winston"],
     action: { type: "route", href: "/work/chiefpulse" },
+  },
+  {
+    id: "nyaya",
+    label: "NyayaLens",
+    hint: "AI SaaS",
+    keywords: ["nyaya", "legal", "law", "retrieval", "saas", "ai"],
+    action: { type: "route", href: "/work/nyaya-lens" },
   },
   {
     id: "analyzer",

@@ -25,7 +25,7 @@ export const profile = {
 
 export const about = {
   who: "I'm Nitin, an engineer from PSG College of Technology. I work at the intersection of full-stack product, machine learning, and systems — the kind of problems where the interface, the model, and the infrastructure all have to agree.",
-  build: "Intelligent products with a real user on the other side: founder tools at ChiefPulse, computer-vision pipelines, retrieval-backed robotics, and small, well-made web systems.",
+  build: "Intelligent products with a real user on the other side: founder tools at ChiefPulse, NyayaLens for grounded legal research, computer-vision pipelines, retrieval-backed robotics, and small, well-made web systems.",
   problems:
     "I'm most interested in systems that have to reason under constraints — indoor autonomy, live video, retrieval, and product surfaces that have to stay calm when the backend is doing something hard.",
   work: "I start by making the problem smaller than it looks. Then I design the interfaces between pieces before I fall in love with any one of them. I like shipping something real, measuring it, and only then making it clever.",
