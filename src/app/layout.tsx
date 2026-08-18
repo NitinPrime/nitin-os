@@ -1,0 +1,86 @@
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { AppShell } from "@/components/navigation/app-shell";
+import { profile } from "@/data/profile";
+import type { Metadata } from "next";
+import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const instrument = Instrument_Serif({
+  variable: "--font-instrument",
+  subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
+});
+
+const description =
+  "Nitin is a software engineer working across full-stack products, AI/ML systems, and robotics. Founding Engineer at ChiefPulse. Selected work: autonomous indoor drone, AI SaaS, backend systems.";
+
+export const metadata: Metadata = {
+  metadataBase: new URL("https://nitin.os"),
+  title: {
+    default: "Nitin — Software Engineer",
+    template: "%s — Nitin",
+  },
+  description,
+  authors: [{ name: profile.fullName, url: profile.github }],
+  keywords: [
+    "Nitin",
+    "Software Engineer",
+    "Full Stack",
+    "AI",
+    "Machine Learning",
+    "ChiefPulse",
+    "Next.js",
+    "TypeScript",
+  ],
+  openGraph: {
+    title: "Nitin — Software Engineer",
+    description,
+    type: "website",
+    locale: "en_US",
+    siteName: "NITIN.OS",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nitin — Software Engineer",
+    description,
+  },
+  robots: { index: true, follow: true },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: profile.fullName,
+    jobTitle: profile.title,
+    email: profile.email,
+    telephone: profile.phone,
+    url: "https://nitin.os",
+    sameAs: [profile.github, profile.linkedin],
+    alumniOf: "PSG College of Technology",
+  };
+
+  return (
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${instrument.variable}`}>
+      <body className="grain min-h-screen bg-base font-sans text-ink antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <AppShell>
+          <main id="main">{children}</main>
+        </AppShell>
+      </body>
+    </html>
+  );
+}
