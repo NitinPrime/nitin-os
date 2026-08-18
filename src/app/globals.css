@@ -93,3 +93,36 @@ body {
   border: 1px dashed color-mix(in srgb, var(--color-accent-2) 45%, transparent);
   padding: 0.15rem 0.4rem;
 }
+
+.scanline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(77, 124, 255, 0.09) 48%,
+    rgba(243, 244, 246, 0.12) 50%,
+    rgba(77, 124, 255, 0.09) 52%,
+    transparent 100%
+  );
+  background-size: 100% 220%;
+  animation: scan 7.5s linear infinite;
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanline::after {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  0% {
+    background-position: 0 -40%;
+  }
+  100% {
+    background-position: 0 140%;
+  }
+}

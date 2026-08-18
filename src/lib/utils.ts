@@ -24,9 +24,6 @@ export function markBooted() {
   } catch {
     // private mode / blocked storage
   }
-  if (typeof window !== "undefined") {
-    window.dispatchEvent(new Event("nitin-os-boot"));
-  }
 }
 
 export function scrollToId(id: string) {

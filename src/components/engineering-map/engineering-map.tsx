@@ -2,6 +2,7 @@
 
 import { Needed, SectionLabel } from "@/components/ui/meta";
 import { Reveal } from "@/components/ui/reveal";
+import { OperatorNode } from "@/components/hero/operator-portrait";
 import { engineDomains, type EngineDomain } from "@/data/engine";
 import { cn } from "@/lib/utils";
 import { useMemo, useState } from "react";
@@ -78,17 +79,10 @@ export function EngineeringMap() {
                 );
               })}
               <circle cx="50" cy="50" r="11" fill="#0e1015" stroke="rgba(255,255,255,0.18)" strokeWidth="0.4" />
-              <text
-                x="50"
-                y="51.4"
-                textAnchor="middle"
-                fill="#f3f4f6"
-                fontSize="3.4"
-                fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-              >
-                NITIN
-              </text>
             </svg>
+            <div className="pointer-events-none absolute top-1/2 left-1/2 size-[22%] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-full">
+              <OperatorNode className="size-full" />
+            </div>
           </div>
 
           <div>

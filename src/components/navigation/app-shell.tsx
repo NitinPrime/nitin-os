@@ -4,20 +4,10 @@ import { BootSequence } from "@/components/boot/boot-sequence";
 import { CommandPalette } from "@/components/command-palette/command-palette";
 import { Navigation } from "@/components/navigation/navigation";
 import { ScrollProgress } from "@/components/navigation/scroll-progress";
-import { hasBooted, markBooted } from "@/lib/utils";
-import { useCallback, useEffect, useState, useSyncExternalStore } from "react";
-
-function subscribeBoot(onStoreChange: () => void) {
-  window.addEventListener("nitin-os-boot", onStoreChange);
-  return () => window.removeEventListener("nitin-os-boot", onStoreChange);
-}
+import { useEffect, useState } from "react";
 
 export function AppShell({ children }: { children: React.ReactNode }) {
-  const booting = useSyncExternalStore(subscribeBoot, () => !hasBooted(), () => true);
   const [palette, setPalette] = useState(false);
-  const finishBoot = useCallback(() => {
-    markBooted();
-  }, []);
 
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
@@ -38,7 +28,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       >
         Skip to content
       </a>
-      <BootSequence active={booting} onDone={finishBoot} />
+      <BootSequence />
       <Navigation onOpenPalette={() => setPalette(true)} />
       <ScrollProgress />
       <CommandPalette open={palette} onOpenChange={setPalette} />

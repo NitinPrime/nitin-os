@@ -20,6 +20,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/nitin-s-/",
   siteUrl: "https://nitin-os.vercel.app",
   tags: ["Full Stack", "AI / ML", "Systems", "Product Engineering"],
+  photo: "/images/nitin.png",
 } as const;
 
 export const about = {

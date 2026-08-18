@@ -1,6 +1,6 @@
 "use client";
 
-import { markBooted, prefersReducedMotion } from "@/lib/utils";
+import { hasBooted, markBooted, prefersReducedMotion } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
 const LINES = [
@@ -10,36 +10,45 @@ const LINES = [
   { label: "EXPERIENCE", state: "LOADED" },
 ];
 
-export function BootSequence({
-  active,
-  onDone,
-}: {
-  active: boolean;
-  onDone: () => void;
-}) {
+export function BootSequence() {
+  const [active, setActive] = useState(false);
   const [visible, setVisible] = useState(0);
 
   useEffect(() => {
-    if (!active) return;
-    if (prefersReducedMotion()) {
+    if (hasBooted() || prefersReducedMotion()) {
       markBooted();
-      onDone();
       return;
     }
 
-    const timers: number[] = [];
-    LINES.forEach((_, i) => {
-      timers.push(window.setTimeout(() => setVisible(i + 1), 220 + i * 280));
-    });
-    timers.push(
+    let cancelled = false;
+    const start = window.setTimeout(() => {
+      if (!cancelled) setActive(true);
+    }, 0);
+
+    const lineTimers = LINES.map((_, i) =>
       window.setTimeout(() => {
-        markBooted();
-        onDone();
-      }, 220 + LINES.length * 280 + 420),
+        if (!cancelled) setVisible(i + 1);
+      }, 180 + i * 220),
     );
 
-    return () => timers.forEach((t) => window.clearTimeout(t));
-  }, [active, onDone]);
+    const done = window.setTimeout(() => {
+      if (cancelled) return;
+      markBooted();
+      setActive(false);
+    }, 180 + LINES.length * 220 + 360);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(start);
+      window.clearTimeout(done);
+      lineTimers.forEach((t) => window.clearTimeout(t));
+    };
+  }, []);
+
+  function skip() {
+    markBooted();
+    setActive(false);
+  }
 
   if (!active) return null;
 
@@ -67,10 +76,7 @@ export function BootSequence({
       <button
         type="button"
         className="mt-14 font-mono text-[11px] tracking-[0.22em] text-mute uppercase hover:text-ink"
-        onClick={() => {
-          markBooted();
-          onDone();
-        }}
+        onClick={skip}
       >
         Skip → Explore
       </button>

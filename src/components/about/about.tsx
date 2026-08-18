@@ -1,6 +1,7 @@
+import { OperatorNode } from "@/components/hero/operator-portrait";
 import { SectionLabel } from "@/components/ui/meta";
 import { Reveal } from "@/components/ui/reveal";
-import { about } from "@/data/profile";
+import { about, profile } from "@/data/profile";
 
 const blocks = [
   { q: "Who am I?", a: about.who },
@@ -20,14 +21,33 @@ export function About() {
             Direct answers.
           </h2>
         </Reveal>
-        <dl className="mt-14 space-y-10">
-          {blocks.map((block) => (
-            <div key={block.q} className="grid gap-3 border-t border-line pt-8 md:grid-cols-[240px_1fr]">
-              <dt className="font-mono text-[11px] tracking-[0.18em] uppercase text-dim">{block.q}</dt>
-              <dd className="max-w-2xl text-lg leading-relaxed text-ink">{block.a}</dd>
+
+        <div className="mt-14 grid items-start gap-10 lg:grid-cols-[220px_1fr]">
+          <aside className="border border-line bg-surface p-4">
+            <div className="mx-auto aspect-square w-full max-w-[180px] overflow-hidden rounded-sm">
+              <OperatorNode rounded="sm" className="size-full" />
             </div>
-          ))}
-        </dl>
+            <p className="mt-4 font-mono text-[10px] tracking-[0.18em] uppercase text-accent">Personnel</p>
+            <p className="mt-1 font-display text-2xl">{profile.fullName}</p>
+            <p className="mt-1 font-mono text-[11px] tracking-[0.12em] uppercase text-dim">
+              {profile.title}
+            </p>
+            <p className="mt-4 font-mono text-[10px] leading-5 tracking-[0.08em] text-mute">
+              Not a render.
+              <br />
+              The operator, in a suit.
+            </p>
+          </aside>
+
+          <dl className="space-y-10">
+            {blocks.map((block) => (
+              <div key={block.q} className="grid gap-3 border-t border-line pt-8 md:grid-cols-[200px_1fr]">
+                <dt className="font-mono text-[11px] tracking-[0.18em] uppercase text-dim">{block.q}</dt>
+                <dd className="max-w-2xl text-lg leading-relaxed text-ink">{block.a}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );

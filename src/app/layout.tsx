@@ -68,6 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     url: profile.siteUrl,
     sameAs: [profile.github, profile.linkedin],
     alumniOf: "PSG College of Technology",
+    image: `${profile.siteUrl}${profile.photo}`,
   };
 
   return (
