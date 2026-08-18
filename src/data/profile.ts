@@ -18,6 +18,7 @@ export const profile = {
   github: "https://github.com/NitinPrime",
   githubHandle: "NitinPrime",
   linkedin: "https://www.linkedin.com/in/nitin-s-/",
+  siteUrl: "https://nitin-os.vercel.app",
   tags: ["Full Stack", "AI / ML", "Systems", "Product Engineering"],
 } as const;
 

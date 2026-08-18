@@ -1,7 +1,8 @@
+import { profile } from "@/data/profile";
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://nitin.os";
+  const base = profile.siteUrl;
   return [
     { url: base, lastModified: new Date() },
     { url: `${base}/resume`, lastModified: new Date() },

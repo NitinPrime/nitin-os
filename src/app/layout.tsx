@@ -25,7 +25,7 @@ const description =
   "Nitin is a software engineer working across full-stack products, AI/ML systems, and robotics. Founding Engineer at ChiefPulse. Selected work: autonomous indoor drone, AI SaaS, backend systems.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://nitin.os"),
+  metadataBase: new URL(profile.siteUrl),
   title: {
     default: "Nitin — Software Engineer",
     template: "%s — Nitin",
@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     jobTitle: profile.title,
     email: profile.email,
     telephone: profile.phone,
-    url: "https://nitin.os",
+    url: profile.siteUrl,
     sameAs: [profile.github, profile.linkedin],
     alumniOf: "PSG College of Technology",
   };
