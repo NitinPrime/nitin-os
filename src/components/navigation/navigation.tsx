@@ -81,7 +81,7 @@ export function Navigation({
           <button
             type="button"
             onClick={onOpenPalette}
-            className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-mute uppercase hover:border-line-strong hover:text-ink"
+            className="inline-flex items-center gap-1.5 rounded-md border border-line px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-mute uppercase hover:border-line-strong hover:text-ink"
             aria-keyshortcuts="Meta+K Control+K"
           >
             <Command className="size-3" />
@@ -91,7 +91,7 @@ export function Navigation({
             href={profile.resume}
             target="_blank"
             rel="noreferrer"
-            className="rounded-full bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-base uppercase hover:bg-white"
+            className="rounded-md bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-base uppercase hover:bg-white"
           >
             Resume
           </a>

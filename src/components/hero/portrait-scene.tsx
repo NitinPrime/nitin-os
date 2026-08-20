@@ -15,11 +15,11 @@ export function PortraitScene() {
     if (!mount) return;
 
     const width = mount.clientWidth || 420;
-    const height = mount.clientHeight || 480;
+    const height = mount.clientHeight || 520;
 
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, 0.05, 3.4);
+    const camera = new THREE.PerspectiveCamera(32, width / height, 0.1, 100);
+    camera.position.set(0, 0, 3.55);
 
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
@@ -30,26 +30,19 @@ export function PortraitScene() {
     renderer.setSize(width, height);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.05;
+    renderer.toneMappingExposure = 1.02;
     mount.appendChild(renderer.domElement);
 
     const root = new THREE.Group();
     scene.add(root);
 
-    const ambient = new THREE.AmbientLight(0xf2f0ea, 0.55);
-    scene.add(ambient);
-
-    const key = new THREE.DirectionalLight(0xffffff, 1.35);
-    key.position.set(2.2, 2.4, 3.2);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+    const key = new THREE.DirectionalLight(0xffffff, 1.15);
+    key.position.set(1.6, 2.2, 3);
     scene.add(key);
-
-    const rim = new THREE.DirectionalLight(0x6ec8b8, 0.85);
-    rim.position.set(-2.8, 0.6, -1.2);
+    const rim = new THREE.DirectionalLight(0xa8b4c8, 0.45);
+    rim.position.set(-2.2, 0.4, -1);
     scene.add(rim);
-
-    const fill = new THREE.PointLight(0xd4a574, 0.55, 12);
-    fill.position.set(-1.4, -1.2, 2.2);
-    scene.add(fill);
 
     const pointer = { x: 0, y: 0 };
     const target = { x: 0, y: 0 };
@@ -68,100 +61,60 @@ export function PortraitScene() {
       pointer.y = 0;
     });
 
-    const particleCount = 140;
-    const positions = new Float32Array(particleCount * 3);
-    const speeds = new Float32Array(particleCount);
-    for (let i = 0; i < particleCount; i += 1) {
-      const r = 1.1 + Math.random() * 1.7;
-      const theta = Math.random() * Math.PI * 2;
-      const phi = Math.acos(2 * Math.random() - 1);
-      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.75;
-      positions[i * 3 + 2] = r * Math.cos(phi) * 0.55;
-      speeds[i] = 0.2 + Math.random() * 0.55;
-    }
-    const particleGeo = new THREE.BufferGeometry();
-    particleGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
-    const particleMat = new THREE.PointsMaterial({
-      color: 0x6ec8b8,
-      size: 0.028,
-      transparent: true,
-      opacity: 0.7,
-      depthWrite: false,
-      blending: THREE.AdditiveBlending,
-    });
-    const particles = new THREE.Points(particleGeo, particleMat);
-    root.add(particles);
-
-    const ringGeo = new THREE.TorusGeometry(1.28, 0.008, 16, 128);
-    const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x6ec8b8,
-      transparent: true,
-      opacity: 0.35,
-    });
-    const ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.rotation.x = Math.PI / 2.4;
-    root.add(ring);
-
-    const ring2 = ring.clone();
-    ring2.scale.set(1.12, 1.12, 1.12);
-    ring2.material = new THREE.MeshBasicMaterial({
-      color: 0xd4a574,
-      transparent: true,
-      opacity: 0.22,
-    });
-    ring2.rotation.x = Math.PI / 2.1;
-    root.add(ring2);
-
     let portrait: THREE.Mesh | null = null;
-    let frameMesh: THREE.Mesh | null = null;
+    let shadow: THREE.Mesh | null = null;
     let disposed = false;
     let frameId = 0;
 
     const loader = new THREE.TextureLoader();
-    loader.load(
-      profile.photo,
-      (texture) => {
-        if (disposed) {
-          texture.dispose();
-          return;
-        }
+    loader.load(profile.photo, (texture) => {
+      if (disposed) {
+        texture.dispose();
+        return;
+      }
 
-        texture.colorSpace = THREE.SRGBColorSpace;
-        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-        texture.minFilter = THREE.LinearMipmapLinearFilter;
-        texture.magFilter = THREE.LinearFilter;
+      texture.colorSpace = THREE.SRGBColorSpace;
+      texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+      texture.minFilter = THREE.LinearMipmapLinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.wrapS = THREE.ClampToEdgeWrapping;
+      texture.wrapT = THREE.ClampToEdgeWrapping;
 
-        const img = texture.image as HTMLImageElement;
-        const aspect = img.width / img.height;
-        const planeH = 2.35;
-        const planeW = planeH * aspect;
+      const img = texture.image as HTMLImageElement;
+      const imageAspect = img.width / Math.max(img.height, 1);
+      const planeAspect = 3 / 4;
+      const planeH = 2.2;
+      const planeW = planeH * planeAspect;
 
-        const geo = new THREE.PlaneGeometry(planeW, planeH, 32, 32);
-        const mat = new THREE.MeshStandardMaterial({
-          map: texture,
-          roughness: 0.42,
-          metalness: 0.08,
-        });
-        portrait = new THREE.Mesh(geo, mat);
-        portrait.position.z = 0.05;
-        root.add(portrait);
+      // Cover-crop toward the face
+      if (imageAspect > planeAspect) {
+        texture.repeat.set(planeAspect / imageAspect, 1);
+        texture.offset.set((1 - texture.repeat.x) / 2, 0);
+      } else {
+        texture.repeat.set(1, imageAspect / planeAspect);
+        texture.offset.set(0, (1 - texture.repeat.y) * 0.62);
+      }
 
-        const frameGeo = new THREE.PlaneGeometry(planeW + 0.08, planeH + 0.08);
-        const frameMat = new THREE.MeshBasicMaterial({
-          color: 0x1a1f28,
-          transparent: true,
-          opacity: 0.9,
-        });
-        frameMesh = new THREE.Mesh(frameGeo, frameMat);
-        frameMesh.position.z = 0.01;
-        root.add(frameMesh);
-      },
-      undefined,
-      () => {
-        // texture load failed — leave particles only
-      },
-    );
+      const geo = new THREE.PlaneGeometry(planeW, planeH, 1, 1);
+      const mat = new THREE.MeshStandardMaterial({
+        map: texture,
+        roughness: 0.55,
+        metalness: 0.02,
+      });
+      portrait = new THREE.Mesh(geo, mat);
+      portrait.position.z = 0.04;
+      root.add(portrait);
+
+      const shadowGeo = new THREE.PlaneGeometry(planeW * 1.05, planeH * 1.05);
+      const shadowMat = new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        transparent: true,
+        opacity: 0.28,
+      });
+      shadow = new THREE.Mesh(shadowGeo, shadowMat);
+      shadow.position.set(0.06, -0.08, -0.08);
+      root.add(shadow);
+    });
 
     const clock = new THREE.Clock();
 
@@ -169,36 +122,22 @@ export function PortraitScene() {
       frameId = window.requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
 
-      target.x += (pointer.x - target.x) * 0.06;
-      target.y += (pointer.y - target.y) * 0.06;
+      target.x += (pointer.x - target.x) * 0.05;
+      target.y += (pointer.y - target.y) * 0.05;
 
-      root.rotation.y = target.x * 0.45;
-      root.rotation.x = target.y * -0.28;
-      root.position.y = Math.sin(t * 0.9) * 0.06;
-
-      ring.rotation.z = t * 0.18;
-      ring2.rotation.z = -t * 0.12;
-
-      const pos = particleGeo.attributes.position as THREE.BufferAttribute;
-      for (let i = 0; i < particleCount; i += 1) {
-        const ix = i * 3 + 1;
-        pos.array[ix] += Math.sin(t * speeds[i] + i) * 0.0015;
-      }
-      pos.needsUpdate = true;
-      particles.rotation.y = t * 0.05;
-
-      if (portrait) {
-        portrait.position.z = 0.05 + Math.sin(t * 1.1) * 0.02;
-      }
+      root.rotation.y = target.x * 0.28;
+      root.rotation.x = target.y * -0.16;
+      root.position.y = Math.sin(t * 0.7) * 0.035;
 
       renderer.render(scene, camera);
     }
     animate();
 
     function onResize() {
-      if (!mount) return;
-      const w = mount.clientWidth;
-      const h = mount.clientHeight;
+      const el = mountRef.current;
+      if (!el) return;
+      const w = el.clientWidth;
+      const h = el.clientHeight;
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
       renderer.setSize(w, h);
@@ -206,28 +145,22 @@ export function PortraitScene() {
 
     const ro = new ResizeObserver(onResize);
     ro.observe(mount);
-    window.addEventListener("resize", onResize);
 
     return () => {
       disposed = true;
       window.cancelAnimationFrame(frameId);
       ro.disconnect();
-      window.removeEventListener("resize", onResize);
       mount.removeEventListener("pointermove", onPointer);
       renderer.dispose();
-      particleGeo.dispose();
-      particleMat.dispose();
-      ringGeo.dispose();
-      ringMat.dispose();
       if (portrait) {
         portrait.geometry.dispose();
         const mat = portrait.material as THREE.MeshStandardMaterial;
         mat.map?.dispose();
         mat.dispose();
       }
-      if (frameMesh) {
-        frameMesh.geometry.dispose();
-        (frameMesh.material as THREE.Material).dispose();
+      if (shadow) {
+        shadow.geometry.dispose();
+        (shadow.material as THREE.Material).dispose();
       }
       if (renderer.domElement.parentElement === mount) {
         mount.removeChild(renderer.domElement);
@@ -237,13 +170,13 @@ export function PortraitScene() {
 
   if (reduced) {
     return (
-      <div className="relative mt-10 h-72 overflow-hidden rounded-2xl border border-line sm:h-96 lg:mt-0 lg:h-[30rem]">
+      <div className="relative mt-10 aspect-[3/4] max-h-[28rem] overflow-hidden rounded-lg border border-line bg-surface sm:mt-0 lg:h-[28rem] lg:max-h-none">
         <img
           src={profile.photo}
           alt={`${profile.fullName}, software engineer`}
           width={720}
-          height={900}
-          className="h-full w-full object-cover object-[center_12%]"
+          height={960}
+          className="h-full w-full object-cover object-[center_18%]"
         />
       </div>
     );
@@ -252,7 +185,7 @@ export function PortraitScene() {
   return (
     <div
       ref={mountRef}
-      className="relative mt-10 h-72 w-full sm:h-96 lg:mt-0 lg:h-[30rem]"
+      className="relative mt-10 h-[22rem] w-full sm:h-[26rem] lg:mt-0 lg:h-[30rem]"
       aria-label={`${profile.fullName} portrait`}
       role="img"
     />

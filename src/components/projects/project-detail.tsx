@@ -63,7 +63,7 @@ export function ProjectDetail({
             role="dialog"
             aria-modal="true"
             aria-labelledby={`project-${project.slug}-title`}
-            className="relative z-10 flex max-h-[92vh] w-full max-w-3xl flex-col overflow-hidden rounded-t-[1.5rem] border border-line bg-[#10131a] shadow-[0_-20px_80px_rgba(0,0,0,0.55)] sm:rounded-[1.5rem] sm:shadow-[0_30px_100px_rgba(0,0,0,0.55)]"
+            className="relative z-10 flex max-h-[90vh] w-full max-w-2xl flex-col overflow-hidden rounded-t-xl border border-line bg-surface sm:rounded-xl"
             initial={reduced ? false : { opacity: 0, y: 36, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.98 }}

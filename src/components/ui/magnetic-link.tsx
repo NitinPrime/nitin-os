@@ -25,7 +25,7 @@ export function MagneticLink({
     const rect = el.getBoundingClientRect();
     const x = event.clientX - rect.left - rect.width / 2;
     const y = event.clientY - rect.top - rect.height / 2;
-    el.style.transform = `translate(${x * 0.12}px, ${y * 0.18}px)`;
+    el.style.transform = `translate(${x * 0.08}px, ${y * 0.12}px)`;
   }
 
   function handleLeave() {
@@ -37,9 +37,9 @@ export function MagneticLink({
       ref={ref}
       href={href}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-[12px] font-medium tracking-[0.16em] uppercase transition-[transform,background,color,border-color] duration-200 will-change-transform",
+        "inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-[11px] font-medium tracking-[0.14em] uppercase transition-[transform,background,color,border-color] duration-200 will-change-transform",
         variant === "primary" && "bg-ink text-base hover:bg-white",
-        variant === "ghost" && "border border-line text-ink hover:border-line-strong hover:bg-white/[0.04]",
+        variant === "ghost" && "border border-line text-ink hover:border-line-strong hover:bg-white/[0.03]",
         className,
       )}
       onMouseMove={handleMove}
