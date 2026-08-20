@@ -67,7 +67,7 @@ export const commands: Command[] = [
 
 export const navItems = [
   { href: "/#work", label: "Work", id: "work" },
-  { href: "/#experience", label: "Experience", id: "experience" },
-  { href: "/#research", label: "Research", id: "research" },
-  { href: "/#contact", label: "Contact", id: "contact" },
+  { href: "/#experience", label: "XP", id: "experience" },
+  { href: "/#research", label: "Paper", id: "research" },
+  { href: "/#contact", label: "Ping", id: "contact" },
 ] as const;

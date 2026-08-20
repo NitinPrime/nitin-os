@@ -257,7 +257,7 @@ export const projects: Project[] = [
     title: "AgentLens",
     kicker: "AI observability · agents",
     summary:
-      "Observability for AI agents — traces, cost/latency analytics, evaluations, and version regression checks, with a Python SDK and a live dashboard. Demo: demo@agentlens.dev / DemoPassword123! (first load may take ~30–60s).",
+      "Observability for AI agents — traces, cost/latency, evals, and version regression checks. Python SDK + live dashboard.",
     problem:
       "AI agents fail in ways that are hard to see: silent retries, ballooning cost, latency spikes, and regressions between versions. Without traces and evaluations, you are debugging by vibe.",
     approach:
@@ -293,7 +293,7 @@ export const projects: Project[] = [
       "Dashboard-first: traces, analytics, evaluations, and regression checks in one place.",
     ],
     result:
-      "A live demo with sign-in. First load may take ~30–60s while the free API wakes.",
+      "Live demo at agent-lens-vert.vercel.app — sign in: demo@agentlens.dev / DemoPassword123! (first load may take ~30–60s while the free API wakes).",
     learnings: [
       "Agent systems need observability as a product surface, not an afterthought log dump.",
     ],

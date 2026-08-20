@@ -137,7 +137,7 @@ export const experience: ExperienceItem[] = [
     org: "EnviroApps INC",
     role: "AI Full Stack Engineer",
     dates: "Aug 2026 — Present",
-    location: "Orlando, Florida",
+    location: "Remote · Orlando, Florida",
     summary: "",
     points: [],
   },
