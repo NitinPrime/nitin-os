@@ -98,6 +98,7 @@ export const projects: Project[] = [
     stack: ["Python", "C++", "ROS", "Gazebo", "FAISS", "LLMs", "Computer Vision"],
     domains: ["AI", "Systems", "Data"],
     links: [
+      { label: "GitHub", href: "https://github.com/NitinPrime/Autonomous-Indoor-Drone" },
       { label: "Live", href: "https://autonomous-indoor-drone-b3ficygjsu6jjtwbe6y5xd.streamlit.app/" },
     ],
     frames: [
