@@ -302,6 +302,13 @@ export const projects: Project[] = [
       { label: "GitHub", href: "https://github.com/NitinPrime/AgentLens" },
       { label: "Live", href: "https://agent-lens-vert.vercel.app" },
     ],
+    frames: [
+      {
+        src: "/images/agent-lens/overview.png",
+        alt: "AgentLens overview dashboard with runs, success rate, latency, tokens, and cost charts",
+        caption: "Overview — live metrics for agent runs: cost, latency, success rate, and token usage.",
+      },
+    ],
     featured: true,
   },
   {

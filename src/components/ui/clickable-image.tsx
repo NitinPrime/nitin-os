@@ -83,7 +83,10 @@ export function ClickableImage({
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={(event) => {
+          event.stopPropagation();
+          setOpen(true);
+        }}
         className={`group block w-full cursor-zoom-in overflow-hidden border-0 bg-transparent p-0 text-left ${wrapperClassName ?? ""}`}
         aria-label={`View ${alt}`}
       >

@@ -59,7 +59,7 @@ export function FloatingPortrait() {
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(to right, #08090c 0%, transparent 28%), linear-gradient(to top, #08090c 0%, transparent 34%), linear-gradient(to bottom, #08090c 0%, transparent 18%)",
+              "linear-gradient(to right, #090a0c 0%, transparent 28%), linear-gradient(to top, #090a0c 0%, transparent 34%), linear-gradient(to bottom, #090a0c 0%, transparent 18%)",
             transform: "translateZ(40px)",
           }}
           aria-hidden
