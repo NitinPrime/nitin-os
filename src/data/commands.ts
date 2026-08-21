@@ -22,7 +22,7 @@ export const commands: Command[] = [
     id: "experience",
     label: "Experience",
     hint: "Timeline",
-    keywords: ["experience", "nus", "psg", "chiefpulse", "enviroapps"],
+    keywords: ["experience", "nus", "psg", "chiefpulse"],
     action: { type: "section", id: "experience" },
   },
   {

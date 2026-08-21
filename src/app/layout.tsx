@@ -22,7 +22,7 @@ const instrument = Instrument_Serif({
 });
 
 const description =
-  "Nitin S is a software engineer working across full-stack products, AI/ML systems, and robotics. Currently at EnviroApps INC. Previously Founding Engineer at ChiefPulse. Selected work: autonomous indoor drone, NyayaLens, AI SaaS, backend systems.";
+  "Nitin S is a software engineer working across full-stack products, AI/ML systems, and robotics. Founding Engineer at ChiefPulse. Selected work: autonomous indoor drone, NyayaLens, AgentLens, backend systems.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(profile.siteUrl),
@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     "Full Stack",
     "AI",
     "Machine Learning",
-    "EnviroApps",
     "ChiefPulse",
     "Next.js",
     "TypeScript",
@@ -64,17 +63,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@type": "Person",
     name: profile.fullName,
-    jobTitle: "AI Full Stack Engineer",
+    jobTitle: profile.title,
     email: profile.email,
     telephone: profile.phone,
     url: profile.siteUrl,
     sameAs: [profile.github, profile.linkedin, profile.resume],
     alumniOf: "PSG College of Technology",
-    worksFor: {
-      "@type": "Organization",
-      name: "EnviroApps INC",
-      address: "Orlando, Florida",
-    },
     image: `${profile.siteUrl}${profile.photo}`,
   };
 

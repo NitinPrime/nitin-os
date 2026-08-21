@@ -132,16 +132,6 @@ export const experience: ExperienceItem[] = [
     stack: ["TypeScript", "React", "Supabase"],
   },
   {
-    id: "enviroapps",
-    era: "PRODUCT",
-    org: "EnviroApps INC",
-    role: "AI Full Stack Engineer",
-    dates: "Aug 2026 — Present",
-    location: "Remote · Orlando, Florida",
-    summary: "",
-    points: [],
-  },
-  {
     id: "next",
     era: "NEXT",
     org: "Next chapter",
