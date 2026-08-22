@@ -3,9 +3,16 @@
 import { navItems } from "@/data/commands";
 import { profile } from "@/data/profile";
 import { cn } from "@/lib/utils";
-import { Command, Menu, X } from "lucide-react";
+import { Command, FileText, Github, Linkedin, Mail, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+
+const socialLinks = [
+  { href: profile.github, label: "GitHub", icon: Github, external: true },
+  { href: profile.linkedin, label: "LinkedIn", icon: Linkedin, external: true },
+  { href: `mailto:${profile.email}`, label: "Email", icon: Mail, external: false },
+  { href: profile.resume, label: "Resume", icon: FileText, external: true },
+] as const;
 
 export function Navigation({
   onOpenPalette,
@@ -60,12 +67,12 @@ export function Navigation({
         scrolled || open ? "border-b border-line bg-base/75 backdrop-blur-xl" : "bg-transparent",
       )}
     >
-      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between px-5 sm:px-8">
-        <Link href="/" className="font-mono text-[12px] tracking-[0.22em] text-ink">
+      <div className="mx-auto flex h-14 max-w-5xl items-center justify-between gap-4 px-5 sm:px-8">
+        <Link href="/" className="shrink-0 font-mono text-[12px] tracking-[0.22em] text-ink">
           {profile.handle}
         </Link>
 
-          <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -78,37 +85,49 @@ export function Navigation({
               {item.label}
             </a>
           ))}
+        </nav>
+
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <div className="flex items-center gap-0.5" aria-label="Contact links">
+            {socialLinks.map((link) => {
+              const Icon = link.icon;
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="inline-flex size-9 items-center justify-center rounded-md text-mute transition-colors hover:bg-white/[0.04] hover:text-ink"
+                  aria-label={link.label}
+                  title={link.label}
+                  {...(link.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                >
+                  <Icon className="size-4" strokeWidth={1.75} />
+                </a>
+              );
+            })}
+          </div>
+
           <button
             type="button"
             onClick={onOpenPalette}
-            className="inline-flex items-center gap-1.5 rounded-md border border-line px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-mute uppercase hover:border-line-strong hover:text-ink"
+            className="hidden items-center gap-1.5 rounded-md border border-line px-2.5 py-1 font-mono text-[10px] tracking-[0.14em] text-mute uppercase hover:border-line-strong hover:text-ink md:inline-flex"
             aria-keyshortcuts="Meta+K Control+K"
           >
             <Command className="size-3" />
             K
           </button>
-          <a
-            href={profile.resume}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-md bg-ink px-3 py-1.5 font-mono text-[10px] tracking-[0.14em] text-base uppercase hover:bg-white"
-          >
-            Resume
-          </a>
-        </nav>
 
-        <div className="flex items-center gap-2 md:hidden">
           <button
             type="button"
             onClick={onOpenPalette}
-            className="rounded-sm border border-line p-2 text-mute"
+            className="inline-flex size-9 items-center justify-center rounded-md border border-line text-mute md:hidden"
             aria-label="Open command palette"
           >
             <Command className="size-4" />
           </button>
+
           <button
             type="button"
-            className="rounded-sm border border-line p-2 text-ink"
+            className="inline-flex size-9 items-center justify-center rounded-md border border-line text-ink lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -120,7 +139,7 @@ export function Navigation({
       </div>
 
       {open ? (
-        <div id="mobile-nav" className="border-t border-line bg-base md:hidden">
+        <div id="mobile-nav" className="border-t border-line bg-base lg:hidden">
           <nav className="flex flex-col px-5 py-4" aria-label="Mobile">
             {navItems.map((item) => (
               <a
@@ -132,15 +151,23 @@ export function Navigation({
                 {item.label}
               </a>
             ))}
-            <a
-              href={profile.resume}
-              target="_blank"
-              rel="noreferrer"
-              className="py-4 font-mono text-[13px] tracking-[0.18em] uppercase"
-              onClick={() => setOpen(false)}
-            >
-              Resume
-            </a>
+            <div className="mt-2 grid grid-cols-2 gap-2 pt-3">
+              {socialLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="inline-flex items-center gap-2 rounded-md border border-line px-3 py-2.5 font-mono text-[11px] tracking-[0.12em] uppercase text-mute hover:text-ink"
+                    onClick={() => setOpen(false)}
+                    {...(link.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                  >
+                    <Icon className="size-3.5" strokeWidth={1.75} />
+                    {link.label}
+                  </a>
+                );
+              })}
+            </div>
           </nav>
         </div>
       ) : null}
