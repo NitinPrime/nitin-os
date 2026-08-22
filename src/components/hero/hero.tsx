@@ -1,4 +1,4 @@
-import { PortraitScene } from "@/components/hero/portrait-scene";
+import { CircularPortrait } from "@/components/hero/circular-portrait";
 import { MagneticLink } from "@/components/ui/magnetic-link";
 import { profile } from "@/data/profile";
 
@@ -30,7 +30,7 @@ export function Hero() {
           </div>
         </div>
 
-        <PortraitScene />
+        <CircularPortrait />
       </div>
     </section>
   );
