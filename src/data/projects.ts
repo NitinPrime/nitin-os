@@ -313,8 +313,60 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "url-shortener",
+    slug: "gta-6-spoiler-blocker",
     code: "05",
+    title: "GTA 6 Spoiler Blocker",
+    kicker: "Chrome extension · privacy",
+    summary:
+      "Blocks GTA 6 spoilers and leaks on YouTube, Reddit, and Google — smart/strict modes, blur or hide, custom keywords. 100% local, zero telemetry.",
+    problem:
+      "Spoiler content for a long-awaited release shows up everywhere: thumbnails, titles, search results. Most tools are either too blunt or ship telemetry you did not ask for.",
+    approach:
+      "A lightweight Chrome extension that filters in real time on YouTube, Reddit, and Google. Smart mode targets spoiler-heavy content; strict mode blocks broader GTA-related material. Users choose blur or hide, and can add custom keywords — all processing stays on device.",
+    architecture: [
+      {
+        id: "detect",
+        label: "Detection",
+        detail: "Keyword and pattern matching against titles, thumbnails, and result text as pages load.",
+      },
+      {
+        id: "modes",
+        label: "Modes",
+        detail: "Smart (spoiler-heavy only) vs Strict (maximum coverage), plus blur or hide.",
+      },
+      {
+        id: "local",
+        label: "Local-only",
+        detail: "Rules and preferences stay in the browser. No accounts, no remote logging.",
+      },
+    ],
+    challenges: [
+      "Catching spoilers without nuking every GTA mention on the page.",
+      "Keeping the extension fast enough that browsing does not feel heavier.",
+    ],
+    decisions: [
+      "Local-first: no data collection, storage, or sharing beyond what the browser needs to run the filter.",
+      "Ship Smart and Strict modes so users can trade recall for precision.",
+    ],
+    result:
+      "Live on the Chrome Web Store (v5.1.0). ~64 KiB, English, declared privacy: website content only, not sold or used beyond core filtering.",
+    learnings: [
+      "Privacy claims only matter if the architecture cannot phone home.",
+      "Content filtering is a product problem: modes and overrides beat a single blunt switch.",
+    ],
+    stack: ["Chrome Extension", "JavaScript", "Content Scripts"],
+    domains: ["Frontend", "Product"],
+    links: [
+      {
+        label: "Chrome Store",
+        href: "https://chromewebstore.google.com/detail/gta-6-spoiler-blocker/jeiicdjopelafmfokikmaimcfhdgamem?hl=en",
+      },
+    ],
+    featured: true,
+  },
+  {
+    slug: "url-shortener",
+    code: "06",
     title: "URL Shortener",
     kicker: "Backend systems · HTTP contracts",
     summary:

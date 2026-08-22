@@ -15,7 +15,7 @@ export const commands: Command[] = [
     id: "work",
     label: "Work",
     hint: "Projects",
-    keywords: ["work", "projects", "drone", "chiefpulse", "nyaya", "agentlens"],
+    keywords: ["work", "projects", "drone", "chiefpulse", "nyaya", "agentlens", "gta", "extension"],
     action: { type: "section", id: "work" },
   },
   {
