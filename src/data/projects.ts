@@ -362,6 +362,13 @@ export const projects: Project[] = [
         href: "https://chromewebstore.google.com/detail/gta-6-spoiler-blocker/jeiicdjopelafmfokikmaimcfhdgamem?hl=en",
       },
     ],
+    frames: [
+      {
+        src: "/images/gta-spoiler-blocker/reddit.png",
+        alt: "GTA 6 Spoiler Blocker hiding spoiler posts on Reddit with Stay Spoiler-Free banner",
+        caption: "On Reddit — spoilers blocked in place, with show-anyway and allow-subreddit controls.",
+      },
+    ],
     featured: true,
   },
   {
